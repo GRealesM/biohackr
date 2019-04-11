@@ -91,7 +91,7 @@ get.orthoIDs <- function(genes = NULL, query_species = "Homo sapiens", input = "
   id_list <- mget(ls(pattern = "-idset"))
   id_list <- Map(cbind, id_list, Species.fasta = vapply(strsplit(names(id_list),"-"), `[`, 1, FUN.VALUE=character(1)))
   id_list <- data.table::rbindlist(id_list, use.names = F)
-  id_list <- suppressWarnings(left_join(id_list, dict, by = "Species.fasta")) [, c(4,1:3, 6, 8, 10:11)]
+  id_list <- suppressWarnings(dplyr::left_join(id_list, dict, by = "Species.fasta")) [, c(4,1:3, 6, 8, 10:11)]
   names(id_list)[1:4] <- c("Species.name", "Gene.name", "Ensembl.Gene.ID", "Confidence")
   id_list[id_list == ""] <- NA
   id_list <- rbind(bmquery, id_list)
