@@ -85,7 +85,7 @@ get.orthoIDs <- function(genes = NULL, query_species = "Homo sapiens", input = "
   for(i in seq_along(dict_noquery$Species.Short.name)){
     cat("Working on", dict_noquery$Species.Short.name[i], "dataset\n", sep = " ")
     abb <- strsplit(dict_noquery$dataset[i], split = "_")[[1]][1]
-    Bm <- getBM(attributes = c("external_gene_name", paste(abb, "_homolog_ensembl_gene", sep = ""), paste(abb, "_homolog_orthology_confidence", sep = "")), filters = input, values = genes, mart = mart, curl = CurlHandle)
+    Bm <- biomaRt::getBM(attributes = c("external_gene_name", paste(abb, "_homolog_ensembl_gene", sep = ""), paste(abb, "_homolog_orthology_confidence", sep = "")), filters = input, values = genes, mart = mart, curl = CurlHandle)
     assign(paste(dict_noquery$Species.fasta[i], "-idset", sep = ""), Bm)
   }
   id_list <- mget(ls(pattern = "-idset"))
