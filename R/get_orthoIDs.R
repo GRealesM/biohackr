@@ -20,7 +20,7 @@
 get.orthoIDs <- function(genes = NULL, query_species = "Homo sapiens", input = "external_gene_name", set = "all", host = "www.ensembl.org",check = FALSE, online = FALSE){
 
   # Create or import the dictionary
-  if(online){
+  if(!online){
     dict <- dict
   } else {
       # Create dictionary from European server and use other mirrors if site is down

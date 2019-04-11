@@ -22,7 +22,7 @@ get.seq <- function(IDs, seqtype = NULL, input_type = "ensembl_gene_id", longest
   if(is.null(genes)) stop("Please, provide a vector of gene identifiers")
 
   # Get dictionary
-  if(online){
+  if(!online){
     dict <- dict
   } else{
     dict <- try(get.dict(),silent = T)

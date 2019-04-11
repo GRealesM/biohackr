@@ -1,7 +1,7 @@
 Package: biohackr
 Type: Package
 Title: A life hack for getting multiple species sequences from Ensembl.
-Version: 0.1.0
+Version: 0.1.1
 Author: Guillermo Reales
 Maintainer: Guillermo Reales <grealesm@gmail.com>
 Description: Ensembl makes data freely accessible through biomaRt, however datasets are organized 
