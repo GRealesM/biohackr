@@ -1,0 +1,21 @@
+Package: biohackr
+Type: Package
+Title: A life hack for getting multiple species sequences from Ensembl.
+Version: 0.1.0
+Author: Guillermo Reales
+Maintainer: Guillermo Reales <grealesm@gmail.com>
+Description: Ensembl makes data freely accessible through biomaRt, however datasets are organized 
+    by species, and therefore it is not straightforward to extract information and sequences across 
+    different species in just one call. Biohackr intends to simplify things by providing a simple
+    hack for retrieving homolog IDs and sequences from many different species at once.
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    biomaRt (>= 2.34.2),
+    rvest (>= 0.3.2),
+    fuzzyjoin (>= 0.1.4),
+    RCurl (>= 1.95-4.12),
+    data.table (>= 1.12.2),
+    xml2
+RoxygenNote: 6.1.1
