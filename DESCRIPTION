@@ -19,5 +19,3 @@ Imports:
     data.table (>= 1.12.2),
     xml2
 RoxygenNote: 6.1.1
-URL: https://github.com/GRealesM/biohackr
-BugReports: https://github.com/GRealesM/biohackr/issues
