@@ -3,3 +3,4 @@
 export(get.dict)
 export(get.orthoIDs)
 export(get.seq)
+importFrom(magrittr,"%>%")

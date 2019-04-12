@@ -33,5 +33,4 @@ Get Ensembl IDs of ortholog genes in desired species, that can subsequently used
 
 IDs <- get.orthoIDs(genes = c("APOE", "HTR3A", "PAX9"), set = c("Mus musculus", "Felis catus"))
 
-
 }

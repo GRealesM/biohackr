@@ -13,6 +13,7 @@
 #'
 #' @examples
 #' Seqfile <- get.seq(IDs = c("ENSG00000166736", "ENSMUSG00000032269"), seqtype = "peptide", host = "uswest.ensembl.org")
+#' @importFrom magrittr %>%
 #'
 #'
 get.seq <- function(IDs, seqtype = NULL, input_type = "ensembl_gene_id", longest = TRUE, host = "www.ensembl.org", online = FALSE){

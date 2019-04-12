@@ -28,6 +28,4 @@ This function retrieves the coding or protein sequence from a list of identifier
 }
 \examples{
 Seqfile <- get.seq(IDs = c("ENSG00000166736", "ENSMUSG00000032269"), seqtype = "peptide", host = "uswest.ensembl.org")
-
-
 }

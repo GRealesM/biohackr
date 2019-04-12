@@ -16,6 +16,8 @@
 #'
 #' IDs <- get.orthoIDs(genes = c("APOE", "HTR3A", "PAX9"), set = c("Mus musculus", "Felis catus"))
 #'
+#' @importFrom magrittr %>%
+#'
 #'
 get.orthoIDs <- function(genes = NULL, query_species = "Homo sapiens", input = "external_gene_name", set = "all", host = "www.ensembl.org",check = FALSE, online = FALSE){
 
