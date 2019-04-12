@@ -52,7 +52,7 @@ get.seq <- function(IDs, seqtype = NULL, input_type = "ensembl_gene_id", longest
   mart <- biomaRt::useMart("ENSEMBL_MART_ENSEMBL", host = host)
   CurlHandle <- RCurl::getCurlHandle()
   list_of_datasets <- unique(genestable$dataset)
-  cat("You provided", length(genes), "Gene IDs and",length(list_of_datasets), "species.\n" , sep = " ")
+  cat("You provided", length(geneslist$x), "Gene IDs and",length(list_of_datasets), "species.\n" , sep = " ")
   cat("You selected", seqtype,"sequence type!\nGathering requested information, this could take a while...\n")
   for(i in 1:length(list_of_datasets)){
     DS <- biomaRt::useDataset(list_of_datasets[i], mart = mart)
