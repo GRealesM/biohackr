@@ -74,7 +74,7 @@ get.seq <- function(IDs, seqtype = NULL, input_type = "ensembl_gene_id", longest
   # Sequence actions
   if(longest == T){
     cat("You chose to keep the longest sequence per gene. Processing...\n")
-    seq_df <- seq_df %>% dplyr::group_by(Ensembl.Gene.ID) %>% dplyr::mutate(rank = rank(desc(Length), ties.method = "random")) %>% dplyr::filter(rank == 1) %>% select(-rank)
+    seq_df <- seq_df %>% dplyr::group_by(Ensembl.Gene.ID) %>% dplyr::mutate(rank = rank(dplyr::desc(Length), ties.method = "random")) %>% dplyr::filter(rank == 1) %>% select(-rank)
   }
   return(seq_df)
 }
