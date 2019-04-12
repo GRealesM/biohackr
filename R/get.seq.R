@@ -19,7 +19,7 @@ get.seq <- function(IDs, seqtype = NULL, input_type = "ensembl_gene_id", longest
 
   # Sanity checks
   if(is.null(seqtype)|| !seqtype %in% c("coding", "peptide")) stop("Please, choose a valid seqtype: coding, protein")
-  if(is.null(genes)) stop("Please, provide a vector of gene identifiers")
+  if(is.null(IDs)) stop("Please, provide a vector of gene identifiers")
 
   # Get dictionary
   if(!online){
