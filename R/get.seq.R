@@ -60,7 +60,7 @@ get.seq <- function(IDs, seqtype = NULL, input_type = "ensembl_gene_id", longest
     genes_for_BM <- genestable %>% dplyr::filter(dataset == list_of_datasets[i]) %>% .$x
     species_for_BM <- genestable %>% dplyr::filter(dataset == list_of_datasets[i]) %>% .$Species.Short.name %>% .[1]
     cat("Working on", species_for_BM, "dataset\n", sep = " ")
-    BM <- biomaRt::getBM(c("ensembl_gene_id", "ensembl_transcript_id", seqtype), filters = input_type, values = genes_for_BM, mart = DS, curl = CurlHandle, quote = "")
+    BM <- biomaRt::getBM(c("ensembl_gene_id", "ensembl_transcript_id_version", "ensembl_peptide_id_version", seqtype), filters = input_type, values = genes_for_BM, mart = DS, curl = CurlHandle, quote = "")
     names(BM) <- gsub("coding|peptide", "seq",names(BM))
     BM$length <- nchar(BM$seq)
     BM$Species_name <- species_for_BM
@@ -68,8 +68,8 @@ get.seq <- function(IDs, seqtype = NULL, input_type = "ensembl_gene_id", longest
     rm(DS)
   }
   listBM <- mget(ls(pattern = "_seqs"))
-  seq_df <- as.data.frame(data.table::rbindlist(listBM))[,c(5,3,1,4,2)]
-  names(seq_df) <- c("Species.name", "Ensembl.Gene.ID", "Ensembl.Transcript.ID", "Length", "Sequence")
+  seq_df <- as.data.frame(data.table::rbindlist(listBM))[,c(6,3:4,1,5,2)]
+  names(seq_df) <- c("Species.name", "Ensembl.Gene.ID", "Ensembl.Transcript.ID", "Ensembl.Peptide.ID","Length", "Sequence")
 
   # Sequence actions
   if(longest == T){
