@@ -7,7 +7,7 @@
 
 <!-- badges: end -->
 
-Biohackr is a package devoted to fix some
+**Biohackr** is a package devoted to fix some
 [biomaRt](https://bioconductor.org/packages/release/bioc/html/biomaRt.html)
 limitations, and it is [available at
 GitHub](https://github.com/GRealesM/biohackr/). Ensembl makes genomic
@@ -21,8 +21,22 @@ many different species at once.
 
 ## Installation
 
-You can install the released version of biohackr from
-[GitHub](https://github.com/GRealesM/) with:
+**Important note**: To use biohackr, you need to have some packages
+installed first. Most of them are installed automatically from
+[CRAN](https://cran.r-project.org/) when installing biohackr. However,
+biomaRt (arguably the most important one), being a
+[Bioconductor](https://bioconductor.org) package, it must be installed a
+little bit differently:
+
+``` r
+if (!requireNamespace("BiocManager"))
+    install.packages("BiocManager")
+BiocManager::install() # For installing core Bioconductor packages
+BiocManager::install("biomaRt") # For installing biomaRt
+```
+
+Once you have biomaRt installed, you may install the released version of
+biohackr from [GitHub](https://github.com/GRealesM/) with:
 
 ``` r
 library(devtools)
@@ -45,10 +59,11 @@ genes <- c("HTR3A", "HTR3B", "PAX9", "APOE")
 
 We also define the list of our species of interest by their scientific
 name. In case any of them is mispelled, biohackr will throw an error
-indicating which names were misspelled. By default it retrieves *all*
-available species in Ensembl, which may take long and usually crash if
-connection with the server is lost. In this case I chose a random sample
-of
+indicating which names were misspelled. By default it retrieves
+***all*** available species/strains in Ensembl (184 in release 96, April
+2019), which may take long and eventually crash if connection with the
+server is lost, so I recommend to use a custom set of species of
+interest. In this case I chose a random sample of
 species.
 
 ``` r
@@ -67,9 +82,10 @@ orthoIDs <- get.orthoIDs(genes, host = "uswest.ensembl.org", set = species_set)
 The default host is www.ensembl.org (UK mirror). However, sometimes
 different mirrors may be down. The function will try to find a
 functioning mirror if default is down. However, we can override this
-behavior by specifying a different mirror (US West in this case). Other
-mirrors are `useast.ensembl.org` (US East) and `asia.ensembl.org`
-(Asia).
+behavior by specifying a different mirror ([US
+West](https://uswest.ensembl.org) in this case). Other mirrors are
+[useast.ensembl.org](https://useast.ensembl.org) (US East) and
+[asia.ensembl.org](https://asia.ensembl.org) (Asia).
 
 Once we have our list of identifiers, we remove duplicated identifiers,
 and instances in which no ortholog was found, then we use `get.seq` for
@@ -83,14 +99,14 @@ orthocds <- get.seq(IDs, seqtype = "coding", host = "uswest.ensembl.org")
 By default, `get.seq` will keep only the longest transcript for each
 gene ID, but this behavior can be changed by setting `longest = FALSE`.
 This will keep all transcripts. Now we can merge both datasets and
-export the result as fasta using `seqinr` package. The following code
-will result in a fasta file named `biohackR_example.fas`, with headers
-in the format `>Species_name|TranscriptID|Original_gene_name`.
+export the result as fasta using the `seqinr` package. The following
+code will result in a fasta file named `biohackR_example.fas`, with
+headers in the format `>Species_name|TranscriptID|Original_gene_name`.
 
 ``` r
 library(seqinr)
 orthomerged <- dplyr::left_join(orthoIDs, orthocds, "Ensembl.Gene.ID")
 orthomerged$Fasta.name <- paste(orthomerged$Species.name.x, orthomerged$Ensembl.Transcript.ID, orthomerged$Gene.name, sep = "|")
 orthomerged <- na.omit(orthomerged)
-write.fasta(sequences = as.list(orthomerged$Sequence), names = orthomerged$Fasta.name, file.out = "biohackR_example.fas")
+seqinr::write.fasta(sequences = as.list(orthomerged$Sequence), names = orthomerged$Fasta.name, file.out = "biohackR_example.fas")
 ```
