@@ -39,13 +39,15 @@ get.dict <- function(url = "https://www.ensembl.org/info/genome/stable_ids/prefi
   prefix_table[grep("HdrR", prefix_table$Species.Full.name),]$Prefix <-"ENSORL.00000"
   prefix_table[grep("HNI", prefix_table$Species.Full.name),]$Prefix <-"ENSORL.0002"
   prefix_table[grep("HSOK", prefix_table$Species.Full.name),]$Prefix <-"ENSORL.00015"
+  prefix_table[grep("Heterocephalus glaber \\(Naked mole-rat male\\)", prefix_table$Species.Full.name),]$Prefix <- "ENSHGL.001"
+  prefix_table[grep("Heterocephalus glaber \\(Naked mole-rat female\\)", prefix_table$Species.Full.name),]$Prefix <- "ENSHGL.000"
   # We add an additional column with underline-separated species names
   prefix_table$Species.Short.name <- gsub("^(.+) \\(.*\\)", "\\1", prefix_table$Species.Full.name)
   prefix_table$Species.fasta <- gsub(" ", "_", prefix_table$Species.Short.name)
 
   if (withdatasets){
   # We retrieve the list of Ensembl datasets to have a full prefix-dataset-species dataset
-  mart <- biomaRt::useMart("ENSEMBL_MART_ENSEMBL", host = host, ensemblRedirect = F)
+  mart <- biomaRt::useMart("ENSEMBL_MART_ENSEMBL", host = host)
   DatasetList <- biomaRt::listDatasets(mart)
   # We make an additional column with common names, which we'll use for joining both datasets
   DatasetList$Common <- gsub("(.*) genes.*", "\\1", DatasetList$description)
