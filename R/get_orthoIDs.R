@@ -74,7 +74,7 @@ get.orthoIDs <- function(genes = NULL, query_species = "Homo sapiens", input = "
       dict <- dict[match(set, dict$Species.Short.name),]
       cat("OK!\n")
     } else {
-      notfound <- which(!set %in% dict$Species)
+      notfound <- which(!set %in% dict$Species.Short.name)
       stop(paste("Invalid species name(s): ", paste(set[notfound], collapse = ", "), "\nPlease, check spelling.\nFor a list of valid species names, use flag check = TRUE\n"))
     }
   } else {
